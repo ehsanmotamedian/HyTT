@@ -1,16 +1,18 @@
 % =========================================================================
-% HyTT Tutorial: Predicting Resource Allocation and Overflow Metabolism in S. cerevisiae
+% HyTT Tutorial: Ab Initio Prediction of Resource Allocation and Overflow Metabolism
+% in S. cerevisiae
 %
 % This script demonstrates the full pipeline of the Hybrid Translation-Transcription 
 % (HyTT) framework, coupling multivariate adaptive regression splines (MARS) constraints
 % with an enzyme-constrained metabolic model. It also mathematically validates the 
 % strict 80S stoichiometric assembly rules.
 %
-% .. Author: Ehsan Motamedian, 2026
+% .. Author: Ehsan Motamedian, July 2026
 % =========================================================================
 
 clc; clear;
-
+% Add subdirectories to MATLAB path
+addpath(genpath(pwd));
 % 0. Initialize GECKO 3 Environment (The Missing Link!)
 disp('Initializing GECKO Adapter...');
 geckoRoot = findGECKOroot;

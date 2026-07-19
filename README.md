@@ -1,6 +1,6 @@
-# HyTT: Hybrid Translation-Transcription Framework for Resource Allocation Modeling
+# HyTT: A hybrid machine learning and enzyme-constrained metabolic model for ab initio prediction of proteome reallocation
 
-HyTT (**Hy**brid **T**ranslation-**T**ranscription) is a novel, *ab initio* mechanistic-statistical computational platform that structurally integrates machine learning predictions with enzyme-constrained genome-scale metabolic models (ecGEMs). By utilizing Multivariate Adaptive Regression Splines (MARS), HyTT autonomously couples macroscopic spatial proteomic boundaries with microscopic, sequence-derived translational costs to simulate cellular resource allocation and predict complex phenotypes like the "proteome squeeze" and metabolic re-routing without relying on condition-specific omics inputs.
+HyTT (**Hy**brid **T**ranslation-**T**ranscription) is a novel, *ab initio* computational platform that integrates sequence-driven machine learning predictions with enzyme-constrained genome-scale metabolic models (ecGEMs). By embedding Multivariate Adaptive Regression Splines (MARS) penalties as strict constraints within a mixed-integer linear programming (MILP) formulation, HyTT autonomously couples macroscopic spatial capacity limits directly to microscopic, sequence-derived translational costs. This framework enables the accurate prediction of dynamic resource reallocation, metabolic burden, and complex systemic adaptations—such as the Crabtree effect, overflow metabolism, and targeted ribosomal paralog switching—without relying on condition-specific multi-omics inputs.
 
 ---
 
@@ -8,7 +8,7 @@ HyTT (**Hy**brid **T**ranslation-**T**ranscription) is a novel, *ab initio* mech
 
 - `src/`: Core MATLAB functions for constructing and solving the HyTT MILP framework.
 - `data/`: Curated biological feature sheets, sequence traits, and ribosomal stoichiometry matrices.
-- `tutorial_main.m`: A comprehensive demonstration script illustrating how to run the full pipeline and simulate overflow metabolism (the Crabtree effect).
+- `tutorial_main.m`: A comprehensive demonstration script illustrating how to run the full pipeline and simulate overflow metabolism and proteome reallocation.
 
 ---
 
@@ -21,9 +21,12 @@ To run the HyTT framework, you need to ensure the following dependencies are ins
 3. **GECKO Toolbox (v3.0):** Required for handling enzyme-constrained models (`ecYeastGEM`). [GECKO GitHub](https://github.com/SysBioChalmers/GECKO)
 4. **MILP Solver:** Gurobi (v9.0+ recommended) or CPLEX, configured as the default factory solver for the COBRA toolbox.
 
-### Getting Started
+---
 
-1. Clone this repository to your local machine:
-   ```bash
-   git clone [https://github.com/ehsanmotamedian/HyTT.git](https://github.com/ehsanmotamedian/HyTT.git)
-   cd HyTT
+## Getting Started & Usage
+
+### 1. Clone the repository
+First, download the framework to your local machine:
+```bash
+git clone [https://github.com/ehsanmotamedian/HyTT.git](https://github.com/ehsanmotamedian/HyTT.git)
+cd HyTT
