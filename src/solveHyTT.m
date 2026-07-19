@@ -26,7 +26,7 @@ function [results, best_sol] = solveHyTT(model, glucose_rate, params)
 %   results             Struct containing predicted macroscopic fluxes, growth rate, and proteome fractions.
 %   best_sol            The complete optimization solution object from the MILP solver.
 %
-% .. Author: - Ehsan Motamedian, 2026
+% .. Author: - Ehsan Motamedian, July 2026
 
 %% 1. Set Defaults
 if nargin < 3 || isempty(params), params = struct(); end

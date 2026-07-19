@@ -10,7 +10,7 @@ function model = addmRNAUsageReactions(model)
 % OUTPUTS:
 %   model               Expanded metabolic model with intracellular mRNA pools, specific usage reactions, and sink balances.
 %
-% .. Author: - Ehsan Motamedian, 2026
+% .. Author: - Ehsan Motamedian, July 2026
 
 % Add mRNA_pool if not exists
 if ~ismember('mRNA_pool[c]', model.mets)
@@ -27,7 +27,7 @@ for i = 1:length(model.ec.genes)
         model = addMetabolite(model, mRNA_id, 'metName', ['mRNA ' uniprot]);
     end
 
-    rxnID = ['usage_mRNA_' uniprot];
+    rxnID = ['ml_mRNA_' uniprot];
     reactionFormula = [mRNA_id ' <=> mRNA_pool[c]'];
 
     % Check if reaction exists
@@ -36,7 +36,7 @@ for i = 1:length(model.ec.genes)
         continue;
     end
 
-    % ظرفیت پایین باز شده تا متغیر مقادیر حقیقی بیولوژیک به خود بگیرد
+    % Lower bound is opened to allow the variable to take true biological values
     model = addReaction(model, rxnID, ...
         'reactionFormula', reactionFormula, ...
         'reversible', true, ...
@@ -46,7 +46,7 @@ for i = 1:length(model.ec.genes)
         'subSystem', 'mRNA Usage', ...
         'geneRule', gene);
 
-    % اضافه کردن واکنش سینک خروجی برای حفظ بالانس جرم (ایده طلایی شما)
+    % Add mRNA sink reaction to maintain continuous mass balance
     sinkID = ['sink_mRNA_' uniprot];
     sinkFormula = [mRNA_id ' => '];
     if ~ismember(sinkID, model.rxns)

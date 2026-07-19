@@ -19,9 +19,9 @@ function [model] = buildHyTT(model, geneFeaturesTable, params)
 %                       * .avg_aa_mw      - Average amino acid molecular weight (Default: 110 Da)
 %
 % OUTPUTS:
-%   model               MILP/LP ready HyTT model
+%   model               MILP ready HyTT model
 %
-% .. Author: - Ehsan Motamedian, June 2026
+% .. Author: - Ehsan Motamedian, July 2026
 %% 1. Check Inputs & Set Defaults
 if nargin < 3 || isempty(params), params = struct(); end
 if ~isfield(params, 'f_pool'),        params.f_pool = 0.71; end
@@ -99,7 +99,7 @@ fprintf('Total genes to expand: %d. Expanding Matrix...\n', numGenesReal);
 for i = 1:numGenes
     if realGeneIdx(i)
         uniprot = char(model.ec.enzymes{i});
-        rxn_mRNA = ['usage_mRNA_' uniprot]; 
+        rxn_mRNA = ['ml_mRNA_' uniprot]; 
         rxn_usage = ['usage_prot_' uniprot]; 
         
         exact_prot_id = ''; native_idx = 0;
@@ -351,7 +351,6 @@ add_vartype = [repmat(gene_vartype, numGenesReal, 1); 'C'; 'C'; 'C'];
 full_vartype = [repmat('C', nRxns, 1); add_vartype];
 
 for g = 1:numGenesReal
-    if native_rxn_cols(g) > 0, MILP_c(native_rxn_cols(g)) = 10000; end
     baseCol = nRxns + (g-1)*11; 
     MILP_c(baseCol + 9) = 1000000; MILP_c(baseCol + 10) = 1000000;      
 end

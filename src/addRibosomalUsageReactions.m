@@ -10,7 +10,7 @@ function model = addRibosomalUsageReactions(model)
 % OUTPUTS:
 %   model               Expanded metabolic model containing 137 core ribosomal subunits and their usage reactions.
 %
-% .. Author: - Ehsan Motamedian, 2026
+% .. Author: - Ehsan Motamedian, July 2026
 
 % Read the ribosomal genes, UniProt IDs, and molecular weights from the attached Excel file
 T = readtable('RibosomalGenes.xlsx', 'Sheet', 'Sheet1', 'VariableNamingRule', 'preserve');
