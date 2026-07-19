@@ -15,6 +15,7 @@ function [constant_adj, beta] = applyMARS_Yeast(geneRow)
 % (e.g., the knots at 8104.54 and 9011.82) are structurally formulated
 % as Big-M constraints directly inside the 'buildHyTT.m' file.
 % =========================================================================
+% .. Author: - Ehsan Motamedian, July 2026
 
 % 1. Extract features based on your exact dataset column names
 cds_at = extractFeat(geneRow, {'CDS-AT', 'CDS_AT'});
