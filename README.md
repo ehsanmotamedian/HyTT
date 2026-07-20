@@ -54,8 +54,8 @@ tutorial_main
 This script will guide you through:
 - Loading the sequence-derived parameters and the base ecGEM.
 - Applying the MARS-derived translational penalties.
-- Formulating and solving the MILP problem to simulate a 15% recombinant protein burden (GFP).
-- Visualizing the reallocation of the proteome and the onset of overflow metabolism (Crabtree effect).
+- Formulating and solving the MILP problem to predict dynamic resource reallocation.
+- Visualizing the onset of overflow metabolism (Crabtree effect).
 
 ---
 
