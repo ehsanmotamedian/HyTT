@@ -29,7 +29,7 @@ To run the HyTT framework, you need to ensure the following dependencies are ins
 First, download the framework to your local machine:
 
 ```bash
-git clone [https://github.com/ehsanmotamedian/HyTT.git](https://github.com/ehsanmotamedian/HyTT.git)
+git clone https://github.com/ehsanmotamedian/HyTT.git
 cd HyTT
 ```
 
