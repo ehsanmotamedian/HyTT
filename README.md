@@ -31,7 +31,7 @@ First, download the framework to your local machine:
 git clone [https://github.com/ehsanmotamedian/HyTT.git](https://github.com/ehsanmotamedian/HyTT.git)
 cd HyTT
 
-2. Initialization
+### 2. Initialization
 Open MATLAB and navigate to the HyTT directory. Add the repository to your MATLAB path and initialize the required toolboxes:
 
 % Add HyTT folders to path
@@ -40,12 +40,12 @@ addpath(genpath(pwd));
 % Initialize COBRA and GECKO (Ensure they are already installed)
 initCobraToolbox(false);
 
-3. Running the Simulation
+### 3. Running the Simulation
 To demonstrate the capabilities of the HyTT framework, we have provided a comprehensive tutorial script. Simply run the following command in the MATLAB command window:
 
 tutorial_main
 
-This script will guide you through:
+# This script will guide you through:
 
 Loading the sequence-derived parameters and the base ecGEM.
 
