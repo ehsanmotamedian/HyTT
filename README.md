@@ -63,8 +63,7 @@ This script will guide you through:
 
 If you use the HyTT framework in your research, please cite our preprint:
 
-> Motamedian, E., & Nikoloski, Z. (2026). *A hybrid machine learning and enzyme-constrained metabolic model for ab initio prediction of proteome reallocation*. bioRxiv. [DOI will be updated upon publication]
-
+> Motamedian, E., & Nikoloski, Z. (2026). *A hybrid machine learning and enzyme-constrained metabolic model for ab initio prediction of proteome reallocation*. bioRxiv. https://doi.org/10.64898/2026.07.20.739489
 ---
 
 ## 📄 License
