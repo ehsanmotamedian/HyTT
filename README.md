@@ -74,9 +74,6 @@ The 115 sequence-derived, transcriptomic, and biophysical features underlying th
 
 The MARS model embedded in `src/applyMARS_Yeast.m` was fit using the `earth` package in R, with 10-fold cross-validation repeated 30 times. The fitting script, training data, and diagnostic outputs are provided in `mars_model/`.
 
-## 📉 Figures
-
-Scripts that regenerate the manuscript figures from the case-study cache files are provided in `figures/`. See individual script headers for the specific cache file(s) each figure requires.
 ---
 
 ## 📖 How to Cite
