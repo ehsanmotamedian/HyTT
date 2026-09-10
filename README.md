@@ -56,7 +56,7 @@ This script will guide you through:
 - Applying the MARS-derived translational penalties.
 - Formulating and solving the MILP problem to predict dynamic resource reallocation.
 - Visualizing the onset of overflow metabolism (Crabtree effect).
-- 
+  
 ## 📊 Reproducing the manuscript case studies
 
 The two protein/pathway burden case studies reported in the manuscript are provided in `case_studies/`:
