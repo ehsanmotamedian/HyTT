@@ -64,7 +64,7 @@ The two protein/pathway burden case studies reported in the manuscript are provi
 - **`case_studies/gfp_burden/`** -- 15% recombinant GFP burden (wild-type baseline and burden comparison).
 - **`case_studies/phaA_phaB_burden/`** -- Heterologous PhaA/PhaB (PHB pathway) burden, including the bisection search used to identify a physiologically realistic operating point.
 
-Each folder contains a standalone script that builds on the core HyTT functions in `src/` and writes a `.mat` cache file used by the plotting scripts in `figures/`.
+Each folder contains a standalone script that builds on the core HyTT functions in src/ and writes a .mat cache file with the full allocation results.
 
 ## 🧬 Feature engineering pipeline
 
