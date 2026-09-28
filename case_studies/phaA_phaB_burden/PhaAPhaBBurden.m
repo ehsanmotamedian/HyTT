@@ -15,6 +15,7 @@
 % GFP-derived scaling):
 %   PhaA (UniProt P14611, PDB 4O9C, 393 aa, MW = 40,532.8 Da):
 %   PhaB (UniProt P14697, 246 aa, MW = 26,370 Da)
+% .. Author: Ehsan Motamedian, September 2026
 % =========================================================================
 clc; clear; close all;
 warning('off', 'all');
