@@ -1,13 +1,13 @@
 % =========================================================================
 % HYTT FRAMEWORK: MOLECULAR MODELING OF HETEROLOGOUS RECOMBINANT BURDEN
-% Three-Layer Integration: Precursor Demand, Spatial Squeeze, Translational Squeeze
+% Three-Layer Integration: Precursor Demand, Spatial Burden, Translational Burden
 % Includes Auto-Repair for Stoichiometric Dead-Ends in User Formulas
 % =========================================================================
 
 clc; clear; close all;
 
 disp('=========================================================================');
-disp('   HYBRID RECOMBINANT BURDEN: COMPLETE DECOUPLING & THREE-LAYER SQUEEZE');
+disp('   HYBRID RECOMBINANT BURDEN: COMPLETE DECOUPLING & THREE-LAYER Burden');
 disp('=========================================================================');
 
 cache_file = 'HyTT_Allocation_Results.mat';
@@ -99,8 +99,8 @@ else
     error('Biomass macro-reaction r_4041 not found for precursor coupling.');
 end
 
-% --- 5. LAYER 2 & 3: SPATIAL AND TRANSLATIONAL SQUEEZE CONFIGURATION ---
-disp('>> Injecting Layer 2 (Spatial Squeeze) & Layer 3 (Translational Squeeze)...');
+% --- 5. LAYER 2 & 3: SPATIAL AND TRANSLATIONAL Burden CONFIGURATION ---
+disp('>> Injecting Layer 2 (Spatial Burden) & Layer 3 (Translational Burden)...');
 
 k_t_host = params_wt.kappa_t;
 k_t_GFP  = 0.80; 
