@@ -1,6 +1,6 @@
 % =========================================================================
 % HYTT FRAMEWORK: PhaA + PhaB HETEROLOGOUS PATHWAY BURDEN
-% (Reviewer's "applied case study where enzymes of a heterologous pathway
+% (Case study where enzymes of a heterologous pathway
 % are expressed" -- extends the single-enzyme PhaB case to a real 2-step
 % pathway: acetyl-CoA -[PhaA]-> acetoacetyl-CoA -[PhaB]-> 3-hydroxybutyryl-CoA)
 %
@@ -11,36 +11,10 @@
 % Reactions modeled:
 %   PhaA: 2 acetyl-CoA -> acetoacetyl-CoA + CoA
 %   PhaB: acetoacetyl-CoA + NADPH + H+ -> (R)-3-hydroxybutyryl-CoA + NADP+
-%
-% WHY ADD PhaA: the single-PhaB version pulls from acetoacetyl-CoA, which
-% in S. cerevisiae is itself a minor side-node fed only by the native
-% thiolase ERG10 (small native flux capacity). PhaA taps directly into the
-% much larger acetyl-CoA pool (a central metabolism hub), which is exactly
-% what the reviewer's pathway case study is meant to test: does supplying
-% real upstream flux change how much ATP/precursor demand and respiration
-% shift the model predicts, compared to the single-enzyme case?
-%
 % Sequences (both counted directly from real protein sequences, no
 % GFP-derived scaling):
 %   PhaA (UniProt P14611, PDB 4O9C, 393 aa, MW = 40,532.8 Da):
-%     MTDVVIVSAARTAVGKFGGSLAKIPAPELGAVVIKAALERAGVKPEQVSEVIMGQVLTA
-%     GSGQNPARQAAIKAGLPAMVPAMTINKVSGSGLKAVMLAANAIMAGDAEIVVAGGQENM
-%     SAAPHVLPGSRDGFRMGDAKLVDTMIVDGLWDVYNQYHMGITAENVAKEYGITREAQDE
-%     FAVGSQNKAEAAQKAGKFDEEIVPVLIPQRKGDPVAFKTDEFVRQGATLDSMSGLKPAF
-%     DKAGTVTAANASGLNDGAAAVVVMSAAKAKELGLTPLATIKSYANAGVDPKVMGMGPVP
-%     ASKRALSRAEWTPQDLDLMEINEAFAAQALAVHQQMGWDTSKVNVNGGAIAIGHPIGAS
-%     GCRILVTLLHEMKRRDAKKGLASLCIGGGMGVALAVERK
-%   PhaB (UniProt P14697, 246 aa, MW = 26,370 Da) -- unchanged from the
-%     single-enzyme script.
-%
-% NOTE ON THE FORCED CATALYTIC FLUX (see Section 7b): S. cerevisiae's own
-% ERG10 thiolase already produces acetoacetyl-CoA, so simply adding PhaA
-% does not guarantee it carries flux -- growth-maximizing FBA could just
-% keep using the native route. Each unit of PhaA turnover feeds exactly
-% one unit of PhaB turnover (1:1 stoichiometry), so both r_PhaA_catalysis
-% and r_PhaB_catalysis are forced to the SAME bisected lower bound,
-% guaranteeing the heterologous two-step pathway itself is what is
-% exercised, not just the native ERG10 shortcut.
+%   PhaB (UniProt P14697, 246 aa, MW = 26,370 Da)
 % =========================================================================
 clc; clear; close all;
 warning('off', 'all');
@@ -118,7 +92,7 @@ phaa_synth_formula = [rxnFormula_PhaA num2str(atpCost_A) ' s_0434 + ' num2str(gt
 ecModel_burden = addReaction(ecModel_burden, 'r_PhaA_synthesis', ...
     'reactionFormula', phaa_synth_formula, 'reversible', false, 'lowerBound', 0, 'upperBound', 1000);
 
-% ---- 4b. PhaB (246 aa) -- unchanged from the single-enzyme script ----
+% ---- 4b. PhaB (246 aa) 
 if ~ismember('prot_PhaB[c]', ecModel_burden.mets)
     ecModel_burden = addMetabolite(ecModel_burden, 'prot_PhaB[c]', 'metName', 'Acetoacetyl-CoA Reductase (PhaB) Protein');
 end
@@ -175,7 +149,7 @@ if ~ismember('sink_3hbCoA_repair', ecModel_burden.rxns)
         'lowerBound', 0, 'upperBound', 1000);
 end
 
-% --- 6. LAYER 2 & 3: SPATIAL AND TRANSLATIONAL SQUEEZE ---
+% --- 6. LAYER 2 & 3: SPATIAL AND TRANSLATIONAL BURDEN ---
 k_t_host = params_wt.kappa_t;
 k_t_enzyme = 0.80;  % same assumed elongation-capacity factor for both heterologous enzymes
 k_t_effective = 1 / ( ((1 - burden_fraction_total) / k_t_host) + (burden_fraction_total / k_t_enzyme) );
@@ -195,14 +169,9 @@ ML_burden_compiled = changeRxnBounds(ML_burden_compiled, 'r_PhaA_catalysis', 100
 ML_burden_compiled = changeRxnBounds(ML_burden_compiled, 'r_PhaB_catalysis', 1000, 'u');
 ML_burden_compiled = changeRxnBounds(ML_burden_compiled, 'sink_3hbCoA_repair', 1000, 'u');
 
-% --- 7b. BISECTION: find the largest SHARED forced lower bound for BOTH
-% r_PhaA_catalysis and r_PhaB_catalysis (1:1 coupled, since one PhaA
-% turnover feeds exactly one PhaB turnover) that the model can sustain.
-% This forces the actual two-step heterologous pathway to run, rather
-% than letting FBA quietly satisfy PhaB's need for acetoacetyl-CoA from
-% the native ERG10 route.
+% --- 7b. BISECTION
 lb_low = 0;
-lb_high = 5;      % acetyl-CoA is a much larger pool than acetoacetyl-CoA alone, so start with a wider bracket than the single-enzyme case
+lb_high = 5;      
 tol_flux = 0.05;
 max_iter = 6;
 best_feasible_lb = 0;
@@ -232,9 +201,8 @@ fprintf('>> Max sustainable coupled PhaA/PhaB flux found: %.4f mmol/gDCW/h (%d b
 % --- 7c. TWO REPORTING POINTS ---
 % The bisected maximum sits right at the edge of near-zero growth (a
 % "stress test" of the model's absolute ceiling), which is not a fair or
-% convincing basis for the main comparison against GFP/PhaB-alone -- a
-% reviewer would reasonably object that showing a barely-alive phenotype
-% overstates the effect. Report BOTH:
+% convincing basis for the main comparison against GFP/PhaB-alone -- showing 
+% a barely-alive phenotype overstates the effect. Report BOTH:
 %   (a) the stress-test maximum (100% of best_feasible_lb)
 %   (b) a moderate, non-edge operating point (50% of best_feasible_lb)
 % and let the moderate point carry the main growth/oxygen/ethanol story.
@@ -294,7 +262,7 @@ if ~isempty(sol_Burden) && results_Burden.mu > 0
     fprintf('   PhaA Catalytic Flux    |      --      |       %.4f          |      %.4f      \n', flux_A_mod, flux_A_max);
     fprintf('   PhaB Catalytic Flux    |      --      |       %.4f          |      %.4f      \n', flux_B_mod, flux_B_max);
     fprintf('=========================================================================\n');
-    fprintf('   FOR THE REVIEWER RESPONSE: use the "Moderate (50%% max)" column as the\n');
+    fprintf('   Use the "Moderate (50%% max)" column as the\n');
     fprintf('   main reported operating point -- it carries a real, comparable growth\n');
     fprintf('   rate (not a near-zero edge case) while still exercising genuine\n');
     fprintf('   catalytic flux through both heterologous enzymes. The "Stress-Test Max"\n');
