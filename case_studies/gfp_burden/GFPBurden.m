@@ -2,6 +2,7 @@
 % HYTT FRAMEWORK: MOLECULAR MODELING OF HETEROLOGOUS RECOMBINANT BURDEN
 % Three-Layer Integration: Precursor Demand, Spatial Burden, Translational Burden
 % Includes Auto-Repair for Stoichiometric Dead-Ends in User Formulas
+% .. Author: Ehsan Motamedian, September 2026
 % =========================================================================
 
 clc; clear; close all;
